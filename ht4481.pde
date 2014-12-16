@@ -9,7 +9,7 @@ int stisknuto;
 PImage photo;
 int pocet=3;
 int[] znak = {
-  112, 113, 114
+  115, 113, 114
 };
 int[] xx = {
   395, 618, 840
