@@ -53,11 +53,11 @@ void keyPressed() {
 }
 
 void keyReleased() {
- 
+  if(byloOK[stisknuto]){
   fill(0, 255, 0);
   arc(xx[stisknuto], yy[stisknuto], 80, 80, 0, 2*PI, OPEN);
   kontrola();
- 
+  }
 }
 void mouseClicked() {
   image(photo, 0, 0);
