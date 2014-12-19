@@ -7,15 +7,15 @@ AudioPlayer konec;
 int stisknuto;
 
 PImage photo;
-int pocet=3;
+int pocet=4;
 int[] znak = {
-  115, 113, 114
+  112, 113, 114, 115
 };
 int[] xx = {
-  395, 618, 840
+  395, 618, 840, 1062
 };
 int[] yy = {
-  100, 100, 100
+  100, 100, 100, 100
 };   
 boolean byloOK[];
 
