@@ -8,7 +8,15 @@ int stisknuto;
 
 PImage photo;
 int pocet=4;
-int[] znak = {
+
+String dataText[];
+String celyText[];
+String klavesa[];
+int znak[];
+int xx[];
+int yy[];
+
+/*int[] znak = {
   112, 113, 114, 115
 };
 int[] xx = {
@@ -16,9 +24,25 @@ int[] xx = {
 };
 int[] yy = {
   100, 100, 100, 100
-};   
+};*/   
 boolean byloOK[];
 
+void nactiTextDoHodnot(String nazevSouboru){
+dataText = loadStrings(nazevSouboru);
+klavesa = new String[celyText.length];
+znak = new int[celyText.length];
+xx = new int[celyText.length];
+yy = new int[celyText.length];
+for(int i = 0 ; i < celyText.length ; i++){
+String radek = dataText[i];
+String[] hodnoty = splitTokens(radek,", ");
+//klavesa[i] = parseString(hodnoty[0]);
+znak[i] = parseInt(hodnoty[1]);
+xx[i] = parseInt(hodnoty[2]);
+yy[i] = parseInt(hodnoty[3]);
+println(znak[i]);
+}
+}
 void setup() {
   byloOK = new boolean[pocet];
   nulujkontrolu();
@@ -31,6 +55,7 @@ void setup() {
   m = new Minim(this);
   tlacitko = m.loadFile("beep-02.wav");
   konec = m.loadFile("beep-01a.wav");
+  nactiTextDoHodnot("data-ht4481.csv");
 }
 
 void draw() { 
