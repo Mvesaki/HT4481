@@ -4,46 +4,18 @@ Minim m;
 AudioPlayer tlacitko;
 AudioPlayer konec;
 
-int stisknuto;
-
+String stisknuto;
 PImage photo;
-int pocet=4;
-
-String dataText[];
-String celyText[];
-String klavesa[];
-int znak[];
-int xx[];
-int yy[];
-
-/*int[] znak = {
-  112, 113, 114, 115
-};
-int[] xx = {
-  395, 618, 840, 1062
-};
-int[] yy = {
-  100, 100, 100, 100
-};*/   
 boolean byloOK[];
-
-void nactiTextDoHodnot(String nazevSouboru){
-dataText = loadStrings(nazevSouboru);
-klavesa = new String[celyText.length];
-znak = new int[celyText.length];
-xx = new int[celyText.length];
-yy = new int[celyText.length];
-for(int i = 0 ; i < celyText.length ; i++){
-String radek = dataText[i];
-String[] hodnoty = splitTokens(radek,", ");
-//klavesa[i] = parseString(hodnoty[0]);
-znak[i] = parseInt(hodnoty[1]);
-xx[i] = parseInt(hodnoty[2]);
-yy[i] = parseInt(hodnoty[3]);
-println(znak[i]);
-}
-}
+Table table;
+int pocet;
+int index;
+int xx;
+int yy;
 void setup() {
+  
+  table = loadTable("data-ht4481.csv", "header");
+  pocet = table.getRowCount();
   byloOK = new boolean[pocet];
   nulujkontrolu();
   size(1500, 855);
@@ -55,7 +27,7 @@ void setup() {
   m = new Minim(this);
   tlacitko = m.loadFile("beep-02.wav");
   konec = m.loadFile("beep-01a.wav");
-  nactiTextDoHodnot("data-ht4481.csv");
+
 }
 
 void draw() { 
@@ -64,23 +36,24 @@ void draw() {
 
 
 void keyPressed() {
-
-  for (int i = 0; i < pocet; i = i+1) {
-    
-    if (keyCode == znak[i]) {
+  stisknuto = str(keyCode);
+  try{
+  TableRow result = table.findRow(stisknuto, "kod");  
+  xx = int(result.getString("x")); 
+  yy = int(result.getString("y"));
       fill(255, 255, 0);
-      arc(xx[i], yy[i], 80, 80, 0, 2*PI, OPEN);
-      stisknuto = i;
-      byloOK[i]=true;
+      arc(xx, yy, 80, 80, 0, 2*PI, OPEN);
+      index=int(result.getString("id"));
+      byloOK[index]=true;
       tlacitko.loop(0);
-    }
-  }
+    
+  }catch(Exception e){}
 }
 
 void keyReleased() {
-  if(byloOK[stisknuto]){
+  if(byloOK[index]){
   fill(0, 255, 0);
-  arc(xx[stisknuto], yy[stisknuto], 80, 80, 0, 2*PI, OPEN);
+  arc(xx, yy, 80, 80, 0, 2*PI, OPEN);
   kontrola();
   }
 }
