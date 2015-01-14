@@ -37,8 +37,6 @@ void draw() {
 
 void keyPressed() {
   stisknuto = str(keyCode);
-   if(key==27)
-      key=0;
   print (stisknuto);
   print(":");
   try{
@@ -48,6 +46,7 @@ void keyPressed() {
       fill(255, 255, 0);
       arc(xx, yy, 80, 80, 0, 2*PI, OPEN);
       index=int(result.getString("id"));
+      
       println (index);
       byloOK[index]=true;
       tlacitko.loop(0);

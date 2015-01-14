@@ -1,4 +1,22 @@
-import ddf.minim.*;
+import processing.core.*; 
+import processing.data.*; 
+import processing.event.*; 
+import processing.opengl.*; 
+
+import ddf.minim.*; 
+
+import java.util.HashMap; 
+import java.util.ArrayList; 
+import java.io.File; 
+import java.io.BufferedReader; 
+import java.io.PrintWriter; 
+import java.io.InputStream; 
+import java.io.OutputStream; 
+import java.io.IOException; 
+
+public class HT4481 extends PApplet {
+
+
 
 Minim m;
 AudioPlayer tlacitko;
@@ -12,7 +30,7 @@ int pocet;
 int index;
 int xx;
 int yy;
-void setup() {
+public void setup() {
   
   table = loadTable("data-ht4481.csv", "header");
   pocet = table.getRowCount();
@@ -30,24 +48,23 @@ void setup() {
 
 }
 
-void draw() { 
+public void draw() { 
   // keep draw() here to continue looping while waiting for keys
 }
 
 
-void keyPressed() {
+public void keyPressed() {
   stisknuto = str(keyCode);
-   if(key==27)
-      key=0;
   print (stisknuto);
   print(":");
   try{
   TableRow result = table.findRow(stisknuto, "kod");  
-  xx = int(result.getString("x")); 
-  yy = int(result.getString("y"));
+  xx = PApplet.parseInt(result.getString("x")); 
+  yy = PApplet.parseInt(result.getString("y"));
       fill(255, 255, 0);
       arc(xx, yy, 80, 80, 0, 2*PI, OPEN);
-      index=int(result.getString("id"));
+      index=PApplet.parseInt(result.getString("id"));
+      
       println (index);
       byloOK[index]=true;
       tlacitko.loop(0);
@@ -55,26 +72,26 @@ void keyPressed() {
   }catch(Exception e){}
 }
 
-void keyReleased() {
+public void keyReleased() {
   if(byloOK[index]){
   fill(0, 255, 0);
   arc(xx, yy, 80, 80, 0, 2*PI, OPEN);
   kontrola();
   }
 }
-void mouseClicked() {
+public void mouseClicked() {
   image(photo, 0, 0);
   nulujkontrolu();
   kontrola();
 }
 
-void nulujkontrolu() {
+public void nulujkontrolu() {
   for (int i = 0; i < pocet; i = i+1) {
     //  println (i);
     byloOK[i]= false;
   }
 }
-void kontrola() {
+public void kontrola() {
   fill(255, 0, 0);
   rect(60, 800, 50, 50);
   boolean OK= true;
@@ -88,3 +105,12 @@ void kontrola() {
   }
 }
 
+  static public void main(String[] passedArgs) {
+    String[] appletArgs = new String[] { "HT4481" };
+    if (passedArgs != null) {
+      PApplet.main(concat(appletArgs, passedArgs));
+    } else {
+      PApplet.main(appletArgs);
+    }
+  }
+}
