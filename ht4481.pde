@@ -37,6 +37,8 @@ void draw() {
 
 void keyPressed() {
   stisknuto = str(keyCode);
+  print (stisknuto);
+  print(":");
   try{
   TableRow result = table.findRow(stisknuto, "kod");  
   xx = int(result.getString("x")); 
@@ -44,6 +46,8 @@ void keyPressed() {
       fill(255, 255, 0);
       arc(xx, yy, 80, 80, 0, 2*PI, OPEN);
       index=int(result.getString("id"));
+      
+      println (index);
       byloOK[index]=true;
       tlacitko.loop(0);
     
