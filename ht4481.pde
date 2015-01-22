@@ -23,6 +23,8 @@ void setup() {
   background(0);
   photo = loadImage("ht4481.png");
   image(photo, 0, 0);
+  photo.resize(width,height);
+  image(photo, 0, 0);
   kontrola();
   m = new Minim(this);
   tlacitko = m.loadFile("beep-02.wav");
