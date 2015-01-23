@@ -12,13 +12,15 @@ int pocet;
 int index;
 int xx;
 int yy;
+int meritko;
+
 void setup() {
-  
+  meritko = 75;
   table = loadTable("data-ht4481.csv", "header");
   pocet = table.getRowCount();
   byloOK = new boolean[pocet];
   nulujkontrolu();
-  size(1500, 855);
+  size(1125, 641);
   noStroke();
   background(0);
   photo = loadImage("ht4481.png");
@@ -48,7 +50,7 @@ void keyPressed() {
   xx = int(result.getString("x")); 
   yy = int(result.getString("y"));
       fill(255, 255, 0);
-      arc(xx, yy, 80, 80, 0, 2*PI, OPEN);
+      arc(xx*meritko/100, yy*meritko/100, 80*meritko/100, 80*meritko/100, 0, 2*PI, OPEN);
       index=int(result.getString("id"));
       println (index);
       byloOK[index]=true;
@@ -60,7 +62,7 @@ void keyPressed() {
 void keyReleased() {
   if(byloOK[index]){
   fill(0, 255, 0);
-  arc(xx, yy, 80, 80, 0, 2*PI, OPEN);
+  arc(xx*meritko/100, yy*meritko/100, 80*meritko/100, 80*meritko/100, 0, 2*PI, OPEN);
   kontrola();
   }
 }
@@ -78,14 +80,14 @@ void nulujkontrolu() {
 }
 void kontrola() {
   fill(255, 0, 0);
-  rect(60, 800, 50, 50);
+  rect(60*meritko/100, 800*meritko/100, 50*meritko/100, 50*meritko/100);
   boolean OK= true;
   for (int i = 0; i < pocet; i = i+1) {
     OK=OK && byloOK[i];
   }
   if (OK) {
     fill(0, 255, 0);
-    rect(60, 800, 50, 50);
+    rect(60*meritko/100, 800*meritko/100, 50*meritko/100, 50*meritko/100);
     konec.loop(0);
   }
 }
